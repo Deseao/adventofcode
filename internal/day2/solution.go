@@ -21,12 +21,21 @@ func Solve() {
     log.Fatalf("failed parsing input: %s", err)
   }
   fmt.Printf("Part 1 Solution was %d\n", sumValidEntries(entries)) 
+  fmt.Printf("Part 2 Solution was %d\n", sumPositionallyValidEntries(entries))
 }
 
 func sumValidEntries(entries []Entry) int {
   sum := 0
   for _, v := range entries {
     if v.IsValid() { sum++ }
+  }
+  return sum
+}
+
+func sumPositionallyValidEntries(entries []Entry) int {
+  sum := 0
+  for _, v := range entries {
+    if v.IsPositionallyValid() { sum++ }
   }
   return sum
 }

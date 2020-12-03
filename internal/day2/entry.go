@@ -26,3 +26,9 @@ func (e Entry) IsValid() bool {
   }
   return true
 }
+
+func (e Entry) IsPositionallyValid() bool {
+  first := rune(e.Password[e.Policy.Minimum-1]) == e.Policy.Letter
+  second := rune(e.Password[e.Policy.Maximum-1]) == e.Policy.Letter
+  return first != second 
+}
