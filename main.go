@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-  a, b, c, err := day1.FindSumTriplet(day1.ExampleInput, day1.TargetYear)
+  a, b, c, err := day1.FindSumTriplet(day1.PuzzleInput, day1.TargetYear)
   if err != nil {
     panic(err)
   }
