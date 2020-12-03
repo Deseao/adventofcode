@@ -4,13 +4,12 @@ import (
   "fmt"
 
   "advent/internal/day1"
+  "advent/internal/day2"
 )
 
 func main() {
-  a, b, c, err := day1.FindSumTriplet(day1.PuzzleInput, day1.TargetYear)
-  if err != nil {
-    panic(err)
-  }
-  result := a * b * c
-  fmt.Printf("Solution was %d\n", result)
+  fmt.Println("############## DAY 1 #################")
+  day1.Solve()
+  fmt.Println("############## DAY 2 #################")
+  day2.Solve()
 }

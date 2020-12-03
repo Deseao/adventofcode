@@ -1,8 +1,25 @@
 package day1
 
 import (
+  "fmt"
   "errors"
 )
+
+func Solve() {
+ a, b, err := FindSumPair(PuzzleInput, TargetYear)
+ if err != nil {
+    panic(err)
+  }
+  result := a * b
+  fmt.Printf("Part 1 Solution was %d\n", result)
+
+ a, b, c, err := FindSumTriplet(PuzzleInput,TargetYear)
+  if err != nil {
+    panic(err)
+  }
+  result = a * b * c
+  fmt.Printf("Part 2 Solution was %d\n", result)
+}
 
 var ErrNoInput = errors.New("no input")
 var ErrNoMatch = errors.New("no match found")
