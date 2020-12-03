@@ -5,6 +5,7 @@ import (
 
   "advent/internal/day1"
   "advent/internal/day2"
+  "advent/internal/day3"
 )
 
 func main() {
@@ -12,4 +13,6 @@ func main() {
   day1.Solve()
   fmt.Println("############## DAY 2 #################")
   day2.Solve()
+  fmt.Println("############## DAY 3 #################")
+  day3.Solve()
 }
