@@ -1,16 +1,16 @@
-package main
+package day1
 
-const targetYear = 2020
-var exampleInput = []int{1721,
+const TargetYear = 2020
+var ExampleInput = []int{1721,
 979,
 366,
 299,
 675,
 1456}
 
-var exampleSolution = 514579
+var ExampleSolution = 514579
 
-var puzzleInput = []int{1935,
+var PuzzleInput = []int{1935,
 1956,
 1991,
 1425,
