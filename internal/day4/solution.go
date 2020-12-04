@@ -18,6 +18,7 @@ func Solve() {
     log.Fatalf("converting data into passports:", err)
   }
   fmt.Println("Part 1 Solution was", countValid(passports))
+  fmt.Println("Part 2 Solution was", countStrictlyValid(passports))
 }
 
 func splitSliceIntoPassports(data []string) ([]Passport, error) {
@@ -60,6 +61,11 @@ func passportStringsToPassport(data []string) (Passport, error) {
   return pssprt, nil
 }
 
+func fixComments(input string) string {
+  comments := regexp.MustCompile(`(#\S*)`)
+  return comments.ReplaceAllString(input, "\"$1\"\n")
+}
+
 func countValid(passports []Passport) int {
   total := 0
   for _, pass := range passports {
@@ -68,7 +74,11 @@ func countValid(passports []Passport) int {
   return total
 }
 
-func fixComments(input string) string {
-  comments := regexp.MustCompile(`(#\S*)`)
-  return comments.ReplaceAllString(input, "\"$1\"\n")
+func countStrictlyValid(passports []Passport) int {
+   total := 0
+  for _, pass := range passports {
+    if pass.IsStrictValid() { total++ }
+  }
+  return total
 }
+
