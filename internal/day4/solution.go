@@ -15,7 +15,7 @@ func Solve() {
   data := input.NewInput("./input/day4.txt").AsStrings()
   passports, err := splitSliceIntoPassports(data)
   if err != nil {
-    log.Fatalf("converting data into passports:", err)
+    log.Fatalf("converting data into passports: %s", err)
   }
   fmt.Println("Part 1 Solution was", countValid(passports))
   fmt.Println("Part 2 Solution was", countStrictlyValid(passports))

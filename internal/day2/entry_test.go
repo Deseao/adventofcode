@@ -36,7 +36,7 @@ var _ = Describe("IsValid", func() {
   })
 })
 
-var _ Describe("IsPositionallyValid", func() {
+var _ = Describe("IsPositionallyValid", func() {
   var entry Entry
    BeforeEach(func() {
     entry = Entry{
