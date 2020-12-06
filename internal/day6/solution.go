@@ -11,6 +11,7 @@ func Solve() {
   data := input.NewInput("./input/day6.txt").AsStrings()
   groups := splitIntoGroups(data)
   fmt.Println("Part 1 Solution was", sumUniqueAnswers(groups))
+  fmt.Println("Part 2 Solution was", sumCombinedAnswers(groups))
 }
 
 func splitIntoGroups(answers []string) [][]string {
@@ -51,4 +52,28 @@ func countUniqueAnswersInGroup(group []string) int {
     }
   }
   return count
+}
+
+func sumCombinedAnswers(groups [][]string) int {
+  sum := 0
+  for _, v := range groups {
+    sum = sum + countCombinedAnswersInGroup(v)
+  }
+  return sum
+}
+
+func countCombinedAnswersInGroup(group []string) int {
+  total := 0
+  targetQuestions := group[0]
+  for _, answer := range targetQuestions {
+    allContained := true
+    for i := 1; i < len(group); i++ {
+      if !strings.Contains(group[i], string(answer)) {
+        allContained = false
+        break
+      }
+    }
+    if allContained { total++ }
+  }
+  return total
 }
