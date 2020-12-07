@@ -14,6 +14,26 @@ func Solve() {
 	data := input.NewInput("./input/day7.txt").AsStrings()
 	rules := buildRules(data)
 	fmt.Println("Part 1 Solution was", countCanContain("shiny gold", rules))
+	shinyGoldRule := findRule("shiny gold", rules)
+	fmt.Println("Part 2 Solution was", countRequiredBags(shinyGoldRule, rules))
+}
+
+func findRule(name string, rules Rules) Rule {
+	for _, rule := range rules {
+		if rule.Name == name {
+			return rule
+		}
+	}
+	return Rule{}
+}
+func countRequiredBags(rule Rule, rules Rules) int {
+	count := 0
+	//numBags + numBags * numChildBags
+	for _, child := range rule.Children {
+		count = count + child.Quantity
+		count = count + child.Quantity*countRequiredBags(findRule(child.Name, rules), rules)
+	}
+	return count
 }
 
 func countCanContain(name string, rules Rules) int {
