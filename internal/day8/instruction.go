@@ -20,6 +20,46 @@ func (i Instructions) Traverse() int {
 
 }
 
+//Return the value of accumulator for the permutation of i.List where changing exactly one Nop for a Jump or vice versa results in the i.Traverser reaching the end of the List instead of reaching an already visited instruction.
+func (i Instructions) TraverseTerminal() int {
+  for _, instruction := range i.List {
+    i.cleanTraversals()
+    originalOp := instruction.Op
+    if instruction.Op == Jump {
+      instruction.Op = Nop
+    } else if instruction.Op == Nop {
+      instruction.Op = Jump
+    } else { continue }
+    list := []Operation{}
+    for _,inst := range i.List {
+      list = append(list, inst.Op)
+    }
+    result, ok := i.checkTerminalTraversal()
+    if ok { return result }
+    instruction.Op = originalOp
+  }
+  log.Fatalf("No working instruction permutations found")
+  return -99
+}
+
+func (i Instructions) checkTerminalTraversal() (int, bool) {
+  if i.Traverser == len(i.List) {
+     return i.Accumulator, true
+     }
+  if i.List[i.Traverser].Visited == true {
+     return i.Accumulator, false
+     }
+  
+  i.Accumulator, i.Traverser = i.List[i.Traverser].Step(i.Accumulator, i.Traverser)
+  return i.checkTerminalTraversal()
+}
+
+func (i Instructions) cleanTraversals() {
+  for _, inst := range i.List {
+    inst.Visited = false
+  }
+}
+
 type Instruction struct {
   Op Operation
   Arg int
