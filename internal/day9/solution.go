@@ -11,15 +11,20 @@ import (
 var ErrNoInvalid = errors.New("No number found that wasn't a valid sum")
 var ErrInputTooShort = errors.New("The provided numbers slice was not longer than the given preamble size")
 
-const preambleLength = 25
+const preambleLength = 5
 
 func Solve() {
-	data := input.NewInput("./input/day9.txt").AsInts()
+	data := input.NewInput("./input/day9example.txt").AsInts()
 	firstInvalid, err := findFirstInvalid(preambleLength, data) //Change 5 to 25
 	if err != nil {
 		log.Fatalf("Error finding first invalid entry: %s", err)
 	}
 	fmt.Println("Part 1 Solution was", data[firstInvalid])
+	weakness, err := findWeakness(firstInvalid, data)
+	if err != nil {
+		log.Fatalf("Error finding encryption weakness: %s", err)
+	}
+	fmt.Println("Part 2 Solution was", weakness)
 }
 
 //findFirstInvalid returns the index of the first value in numbers which is not a result of summing any two discrete values of the previous preambleLength values of numbers.
@@ -46,4 +51,26 @@ func isSumOfDiscreteNPrevious(target int, operands []int) bool {
 		}
 	}
 	return false
+}
+
+func findWeakness(target int, numbers []int) (weakness int, err error) {
+	contiguousSet, err := findContiguousSet(target, numbers)
+	if err != nil {
+		return err
+	}
+	sort.Ints(contiguousSet)
+	return contiguousSet[0] + contiguousSet[len(contiguousSet)-1]
+}
+
+func findContiguousSet(target int, numbers []int) (set []int, err error) {
+
+	//compare numbers[0] + numbers[1] to target, then 0 + 1 + 2 to target, then 0 + 1 + 3. Then compare 1 + 2 to target, 1 + 2 + 3 to target... sum from i to end and track index.
+	for i, first := range numbers {
+		count := 0
+		sum := first
+		for j := i + 1; j < len(numbers); j++ {
+			sum = sum + numbers[j]
+		}
+	}
+	return numbers, nil
 }
